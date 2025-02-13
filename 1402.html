@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            transition: background 1s ease-in-out;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .btn {
+            padding: 8px 12px;
+            background: pink;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body id="main-body">
+    <div id="cover-page" class="container">
+        <button class="btn" onclick="openCard()">Mở thiệp</button>
+    </div>
+
+    <div id="content-page" class="container hidden">
+        <p id="message">tặng bạn chocolate nè! 💕</p>
+        <button class="btn" onclick="prevImage()">⬅</button>
+        <button class="btn" onclick="nextImage()">➡</button>
+        <button class="btn" onclick="backToCover()">🏠</button>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="NhacNen.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const images = ["cover.jpg", "nen1.jpg", "nen2.jpg", "nen3.jpg", "nen4.jpg", "nen5.jpg", "nen6.jpg", "nen7.jpg", "nen8.jpg","nen9.jpg", "nen10.jpg"];
+        const messages = [
+            "Happy Valentine’s Day 💖",
+            "Tặng bạn chocolate nè! vừa ăn vừa xem nhé! 😅",
+            "Bạn có thấy những trái tim này không, của tớ đấy! 💞",
+            "Cảm ơn cảm ơn bạn vì đã thắp sáng nó lên giúp tớ! 💡",
+            "Tặng bạn bông hoa nè! 🌹",
+            "Và nhiều hoa hơn nữa! 🌷",
+            "Tớ sẽ cố gắng để khóa 2 sợi dây lại! 💑",
+            "Và thêm nhiều lửa hơn nữa. Không quá to, nhưng đủ để cảm nhận! 🔥",
+            "Tớ mong bạn sẽ như lời bài hát này! 'Take me to your heart' 💖",
+            "Chúc bạn có một ngày lễ 14/02 thật vui vẻ và hạnh phúc! 💖",
+            "Hết mất rồi cậu ạ. Chưa nghĩ được thêm gì nữa! 😅"
+        ];
+
+        let currentIndex = 0;
+        const body = document.getElementById("main-body");
+        const contentPage = document.getElementById("content-page");
+        const coverPage = document.getElementById("cover-page");
+        const messageText = document.getElementById("message");
+        const bgMusic = document.getElementById("bg-music");
+
+        function openCard() {
+    coverPage.classList.add("hidden");
+    contentPage.classList.remove("hidden");
+    currentIndex = 1; 
+    updateBackground();
+    bgMusic.play();
+            bgMusic.play();
+        }
+
+        function nextImage() {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                updateBackground();
+            }
+        }
+
+        function prevImage() {
+            if (currentIndex > 1) {
+                currentIndex--;
+                updateBackground();
+            }
+        }
+
+        function updateBackground() {
+            body.style.backgroundImage = `url('${images[currentIndex]}')`;
+            messageText.innerText = messages[currentIndex];
+        }
+
+        function backToCover() {
+            location.reload();
+
+            bgMusic.pause();
+            bgMusic.currentTime = 0;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.style.backgroundImage = "url('cover.jpg')";
+        });
+    </script>
+</body>
+</html>
